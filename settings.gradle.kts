@@ -8,3 +8,5 @@
  */
 
 rootProject.name = "csi01__csc330__s23__18731__class-collab"
+
+include("week3")
