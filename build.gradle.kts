@@ -4,12 +4,20 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.6/samples
  */
+
 plugins {
     java
 }
+allprojects {
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+    apply {
+        plugin("java")
     }
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+
 }
