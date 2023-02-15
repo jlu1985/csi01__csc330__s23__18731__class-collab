@@ -6,5 +6,5 @@ folder structures
 
 | name | description |
 | - | - |
-| class-practice | Programs we went through during class |
+| class-exercise | Programs we went through during class |
 | week3 | class project snapshot at week 3 |
