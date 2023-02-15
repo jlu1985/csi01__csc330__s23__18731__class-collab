@@ -14,16 +14,13 @@ public class SaleCommission {
         System.out.println("enter sale's adv pay:");
         double adv = scanner.nextDouble();
 
-
         System.out.printf("%s gets diff %f", name, calculateCommission(salesTotal) - adv);
-
     }
 
     private static double calculateCommission(double salesTotal) {
         if (salesTotal < 10000) {
             return salesTotal * 0.05;
-        } else
-        if (salesTotal <= 14999) {
+        } else if (salesTotal <= 14999) {
             return salesTotal * 0.1;
         }
 
@@ -34,6 +31,5 @@ public class SaleCommission {
             return salesTotal * 0.15;
         }
         return salesTotal * 0.16;
-
     }
 }

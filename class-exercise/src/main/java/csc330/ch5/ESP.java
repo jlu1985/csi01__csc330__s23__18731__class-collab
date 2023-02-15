@@ -3,7 +3,7 @@ package csc330.ch5;
 import java.util.Random;
 import java.util.Scanner;
 
-//ch5 program 18
+// ch5 program 18
 public class ESP {
 
     public static void main(String[] args) {

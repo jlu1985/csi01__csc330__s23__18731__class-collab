@@ -21,7 +21,6 @@ public class MonthYear {
             int days = new MonthYear(month, year).getDays();
             System.out.printf("month %d days %d", month, days);
         }
-
     }
 
     private boolean isLeapYear() {
@@ -40,6 +39,5 @@ public class MonthYear {
             case 4, 6, 9, 11 -> 30;
             default -> 0;
         };
-
     }
 }
