@@ -1,4 +1,4 @@
-package csi.csc330.jia_lu;
+package csc330.ch5;
 
 import java.util.Random;
 import java.util.Scanner;
