@@ -8,3 +8,4 @@ folder structures
 | - | - |
 | class-exercise | Programs we went through during class |
 | week3 | class project snapshot at week 3 |
+| week5-class | We spent some time think a little in UML class diagram and Sequence diagram then got some code written |
