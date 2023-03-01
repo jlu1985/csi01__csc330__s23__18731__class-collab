@@ -19,8 +19,7 @@ public class TextApp {
 
     public static void main(String[] args) {
 
-        TextApp textApp = new TextApp(new Display(),
-                new Price(), createMenu(), new OrderService());
+        TextApp textApp = new TextApp(new Display(), new Price(), createMenu(), new OrderService());
 
         textApp.startBusiness();
     }
