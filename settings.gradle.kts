@@ -12,3 +12,4 @@ rootProject.name = "csi01__csc330__s23__18731__class-collab"
 include("class-exercise")
 include("week3")
 include("week5-class")
+include("week6-properties")
