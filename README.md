@@ -24,3 +24,5 @@ We got UMLs and finally able to start coding a little. The idea is to keep each 
 We talked about Streams and File IO, and reworked our Menu class and MenuLoader to dynamically load menus from a properties file.
 
 Originally Menu class has fields, and each field is one Pizza type. Since we are introducing properties, we rework the Menu creation logic to create the menu from reading from a properties files. It allows us dynamically create the Pizzas.
+
+Thursday, we talked about Arrays and Collections. We also updated PriceCalculator to handle the pricing logic for Pepperoni and Hawaiian pizzas.

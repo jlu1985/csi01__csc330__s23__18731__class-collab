@@ -114,7 +114,7 @@ an 8inch Peperoni should be selling at \$10 \* 1.1 -c1 = \$10.99.
 
 A general formula is round to up half dollar, then subtract one cent.
 
-A 12inch should be selling at \$11 (price of 8ch before -c1) \* 1.4 =
+A 12inch should be selling at \$11 (priceCalculator of 8ch before -c1) \* 1.4 =
 \$15.4 then round up to \$15.49
 
 A slice of Peperoni should is selling at \$15.4 /6 = \$2.57 rounding up
@@ -238,7 +238,7 @@ Crispy wings. 5piece, 10piece, 20pieces
 
 Grill wings, 5piece, 10 pieces, 20pieces
 
-prices are set as the following. Configurable base price (Wings) for
+prices are set as the following. Configurable base priceCalculator (Wings) for
 5piece wings. 10piece is 190% of 5piece, 20pieces is 180% of 10pieces.
 
 You can choose, regular, mild, and spicy for both types of wings.
@@ -300,10 +300,10 @@ state. He must make the follow adjustments.
 
 1.  All pizzas are available for all 8inches to 16 inches.
 
-2.  The second store is using a higher base price.
+2.  The second store is using a higher base priceCalculator.
 
-3.  Specialty pizza price is only for locals, so the second store uses
-    the regular price model.
+3.  Specialty pizza priceCalculator is only for locals, so the second store uses
+    the regular priceCalculator model.
 
 4.  Joe wants to see both stores' sales reports via a single terminal
     (console, web, or kiosk)

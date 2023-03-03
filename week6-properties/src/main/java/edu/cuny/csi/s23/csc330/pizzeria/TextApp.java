@@ -4,22 +4,27 @@ import java.util.Scanner;
 
 public class TextApp {
     private final Display display;
-    private final Price price;
+    private final PriceCalculator priceCalculator;
     private final Menu menu;
     private final OrderService orderService;
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public TextApp(Display display, Price price, Menu menu, OrderService orderService) {
+    public TextApp(
+            Display display,
+            PriceCalculator priceCalculator,
+            Menu menu,
+            OrderService orderService) {
         this.display = display;
-        this.price = price;
+        this.priceCalculator = priceCalculator;
         this.menu = menu;
         this.orderService = orderService;
     }
 
     public static void main(String[] args) {
 
-        TextApp textApp = new TextApp(new Display(), new Price(), createMenu(), new OrderService());
+        TextApp textApp =
+                new TextApp(new Display(), new PriceCalculator(), createMenu(), new OrderService());
 
         textApp.startBusiness();
     }
@@ -62,7 +67,7 @@ public class TextApp {
                 display.displayOrder(order);
                 System.exit(0);
             }
-            order.add(new OrderItem(pizza.getType().toString(), price.getPrice(pizza)));
+            order.add(new OrderItem(pizza.getType().toString(), priceCalculator.getPrice(pizza)));
             display.displayOrder(order);
         }
     }
