@@ -1,10 +1,10 @@
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class TestTest {
     @Test
-    void testTest(){
+    void testTest() {
         assertEquals("helloJunit", "helloJunit");
     }
 }
