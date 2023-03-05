@@ -20,6 +20,14 @@ allprojects {
     apply(plugin = "java")
     apply(plugin = "com.diffplug.spotless")
     apply(plugin = "application")
+
+    dependencies {
+        testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    }
+    tasks.getByName<Test>("test") {
+        useJUnitPlatform()
+    }
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
