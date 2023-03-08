@@ -15,10 +15,6 @@ public class HawaiianCalculator extends PriceCalculator {
         ;
     }
 
-    public HawaiianCalculator() {
-        super(null, null);
-    }
-
     public double getPrice(Pizza pizza) {
         return switch (pizza.getSize()) {
             case 8 -> get8inch();

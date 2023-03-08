@@ -25,8 +25,7 @@ public class TextApp {
         MenuLoader menuLoader = new MenuLoader();
         Menu menu = menuLoader.createMenu();
 
-        PriceCalculator priceCalculator1 =
-                new PriceCalculator(new PepperoniCalculator(), new HawaiianCalculator());
+        PriceCalculator priceCalculator1 = new PriceCalculator();
 
         menu.setPriceCalculator(priceCalculator1);
 

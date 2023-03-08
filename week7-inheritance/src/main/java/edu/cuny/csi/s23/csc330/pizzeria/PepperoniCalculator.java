@@ -19,7 +19,6 @@ public class PepperoniCalculator extends PriceCalculator {
     private final Map<Integer, Double> prices;
 
     public PepperoniCalculator() {
-        super(null, null);
         prices = new HashMap<>();
         prices.put(10, 1.2);
         prices.put(12, 1.4);

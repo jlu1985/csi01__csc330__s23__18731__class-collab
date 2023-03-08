@@ -2,16 +2,16 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.ArrayList;
 
-public class Pizza extends PizzaMenuItem {
+public class Pizza {
     private int size;
     private final ArrayList toppings;
-    private final ArrayList sizes;
+
     private final PizzaType type;
     private final Crust crust;
 
     public Pizza(PizzaType type, Crust crust) {
         this.toppings = new ArrayList();
-        this.sizes = new ArrayList();
+
         this.type = type;
         this.crust = crust;
     }
@@ -43,10 +43,10 @@ public class Pizza extends PizzaMenuItem {
     @Override
     public String toString() {
         return "Pizza{"
-                + "toppings="
+                + "size="
+                + size
+                + ", toppings="
                 + toppings
-                + ", sizes="
-                + sizes
                 + ", type="
                 + type
                 + ", crust="

@@ -1,11 +1,8 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class MenuLoader {
@@ -17,17 +14,15 @@ public class MenuLoader {
         1. use relative path to -cp
         2. use absolute path to the file
           */
-        URL resource = MenuLoader.class.getClassLoader().getResource("menu.properties");
-        Path path = Paths.get(resource.toURI());
-        System.out.println(path.toAbsolutePath());
 
-        try (FileInputStream fis = new FileInputStream(path.toFile())) {
-            p.load(fis);
+        try (InputStream is =
+                MenuLoader.class.getClassLoader().getResourceAsStream("menu.properties")) {
+            p.load(is);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
-        System.out.println(p);
+        // System.out.println(p);
         int numberOfItmes = Integer.parseInt(p.getProperty("menu.total.size"));
         Menu menu = new Menu();
         for (var i = 0; i < numberOfItmes; i++) {
@@ -45,7 +40,7 @@ public class MenuLoader {
         PizzaMenuItem pizzaMenuItem = new PizzaMenuItem();
         pizzaMenuItem.setPizzaType(pizzaType);
         pizzaMenuItem.addSize(size);
-        System.out.println(pizzaMenuItem);
+        //    System.out.println(pizzaMenuItem);
         return pizzaMenuItem;
     }
 }
