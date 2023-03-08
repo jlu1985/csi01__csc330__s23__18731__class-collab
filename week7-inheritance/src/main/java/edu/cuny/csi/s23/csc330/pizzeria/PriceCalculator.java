@@ -5,9 +5,11 @@ public class PriceCalculator {
     private PepperoniCalculator pepperoniCalculator;
     private HawaiianCalculator hawaiianCalculator;
 
-    public PriceCalculator() {
-        pepperoniCalculator = new PepperoniCalculator();
-        hawaiianCalculator = new HawaiianCalculator();
+    public PriceCalculator(
+            PepperoniCalculator pepperoniCalculator, HawaiianCalculator hawaiianCalculator) {
+
+        this.pepperoniCalculator = pepperoniCalculator;
+        this.hawaiianCalculator = hawaiianCalculator;
     }
 
     public double getPrice(Pizza pizza) {

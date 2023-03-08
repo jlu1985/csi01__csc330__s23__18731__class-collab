@@ -2,6 +2,8 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import static java.lang.System.out;
 
+import java.util.ArrayList;
+
 public class Display {
     public void say(String word) {
         out.println(word);
@@ -15,10 +17,9 @@ public class Display {
     }
 
     public void displayMenu(Menu menu) {
-
-        out.println("1." + menu.getPepperoni());
-        out.println("2." + menu.getHawaiian());
-        out.println("3" + menu.getSpecialty());
-        out.println("4" + menu.getBuildYourOwn());
+        ArrayList<MenuItem> menuItems = menu.getMenuItems();
+        for (var i = 0; i < menuItems.size(); i++) {
+            out.println("i." + menuItems.get(0));
+        }
     }
 }

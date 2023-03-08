@@ -1,41 +1,33 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import java.util.ArrayList;
+
 public class Menu {
-    private final Pizza pepperoni;
-    private final Pizza hawaiian;
-    private final Pizza specialty;
-    private final Pizza buildYourOwn;
 
-    public Menu(Pizza pepperoni, Pizza hawaiian, Pizza specialty, Pizza buildYourOwn) {
-        this.pepperoni = pepperoni;
-        this.hawaiian = hawaiian;
-        this.specialty = specialty;
-        this.buildYourOwn = buildYourOwn;
+    private ArrayList<MenuItem> menuItems;
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
     }
 
-    public Pizza getPepperoni() {
-        return pepperoni;
+    private PriceCalculator priceCalculator;
+
+    public Menu() {
+        menuItems = new ArrayList<>();
     }
 
-    public Pizza getHawaiian() {
-        return hawaiian;
+    public MenuItem get(int choice) {
+        if (menuItems.size() <= choice) {
+            return null;
+        }
+        return menuItems.get(choice + 1);
     }
 
-    public Pizza getSpecialty() {
-        return specialty;
+    public void add(MenuItem buildPizzaMenu) {
+        menuItems.add(buildPizzaMenu);
     }
 
-    public Pizza getBuildYourOwn() {
-        return buildYourOwn;
-    }
-
-    public Pizza get(double choice) {
-        return switch ((int) choice) {
-            case 1 -> pepperoni;
-            case 2 -> hawaiian;
-            case 3 -> specialty;
-            case 4 -> buildYourOwn;
-            default -> null;
-        };
+    public void setPriceCalculator(PriceCalculator priceCalculator1) {
+        this.priceCalculator = priceCalculator1;
     }
 }

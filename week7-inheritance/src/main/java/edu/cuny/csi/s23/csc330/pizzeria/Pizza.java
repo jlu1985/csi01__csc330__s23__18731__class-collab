@@ -2,12 +2,12 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.ArrayList;
 
-public class Pizza {
+public class Pizza extends MenuItem {
     public ArrayList getToppings() {
         return toppings;
     }
 
-    private int size;
+    private int size = 8;
 
     public int getSize() {
         return size;
@@ -21,6 +21,7 @@ public class Pizza {
         return sizes;
     }
 
+    @Override
     public PizzaType getType() {
         return type;
     }

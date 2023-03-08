@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class MenuLoader {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public Menu createMenu() throws IOException, URISyntaxException {
         Properties p = new Properties();
 
         /*
@@ -29,9 +29,11 @@ public class MenuLoader {
 
         System.out.println(p);
         int numberOfItmes = Integer.parseInt(p.getProperty("menu.total.size"));
+        Menu menu = new Menu();
         for (var i = 0; i < numberOfItmes; i++) {
-            buildPizzaMenu(p, i);
+            menu.add(buildPizzaMenu(p, i));
         }
+        return menu;
     }
 
     private static Pizza buildPizzaMenu(Properties p, int i) {

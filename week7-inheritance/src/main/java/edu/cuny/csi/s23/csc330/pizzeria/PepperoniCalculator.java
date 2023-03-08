@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PepperoniCalculator {
+public class PepperoniCalculator extends PriceCalculator {
 
     public static void main(String[] args) {
         PepperoniCalculator pepperoniCalculator = new PepperoniCalculator();
@@ -19,6 +19,7 @@ public class PepperoniCalculator {
     private final Map<Integer, Double> prices;
 
     public PepperoniCalculator() {
+        super(null, null);
         prices = new HashMap<>();
         prices.put(10, 1.2);
         prices.put(12, 1.4);

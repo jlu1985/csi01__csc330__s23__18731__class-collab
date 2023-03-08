@@ -21,37 +21,18 @@ public class TextApp {
         this.orderService = orderService;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        MenuLoader menuLoader = new MenuLoader();
+        Menu menu = menuLoader.createMenu();
 
-        TextApp textApp =
-                new TextApp(new Display(), new PriceCalculator(), createMenu(), new OrderService());
+        PriceCalculator priceCalculator1 =
+                new PriceCalculator(new PepperoniCalculator(), new HawaiianCalculator());
+
+        menu.setPriceCalculator(priceCalculator1);
+
+        TextApp textApp = new TextApp(new Display(), priceCalculator1, menu, new OrderService());
 
         textApp.startBusiness();
-    }
-
-    private static Menu createMenu() {
-        Pizza pizza = new Pizza(PizzaType.PEPPERONI);
-        pizza.addSize(8);
-        pizza.addSize(10);
-        pizza.addSize(12);
-
-        Pizza hawaiian = new Pizza(PizzaType.HAWAIIAN);
-        hawaiian.addSize(8);
-        hawaiian.addSize(10);
-        hawaiian.addSize(12);
-
-        Pizza speical = new Pizza(PizzaType.SPECIAL);
-        speical.addSize(8);
-        speical.addSize(10);
-        speical.addSize(12);
-
-        Pizza byop = new Pizza(PizzaType.BUILD_YOUR_OWN);
-        byop.addSize(8);
-        byop.addSize(10);
-        byop.addSize(12);
-        Menu menu = new Menu(pizza, hawaiian, speical, byop);
-
-        return menu;
     }
 
     private void startBusiness() {
@@ -59,15 +40,17 @@ public class TextApp {
         while (true) {
             display.displayMenu(menu);
             display.say("Choose item (exit use invalid choice)");
-            double v = scanner.nextDouble();
-            Pizza pizza = menu.get(v);
+            int v = scanner.nextInt();
+            MenuItem pizza = menu.get(v);
 
             if (pizza == null) {
                 display.say("checkout ");
                 display.displayOrder(order);
                 System.exit(0);
             }
-            order.add(new OrderItem(pizza.getType().toString(), priceCalculator.getPrice(pizza)));
+            order.add(
+                    new OrderItem(
+                            pizza.getType().toString(), priceCalculator.getPrice((Pizza) pizza)));
             display.displayOrder(order);
         }
     }

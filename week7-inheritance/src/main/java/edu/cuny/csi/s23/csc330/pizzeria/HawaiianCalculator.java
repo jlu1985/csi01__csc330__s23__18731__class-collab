@@ -2,7 +2,7 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.List;
 
-public class HawaiianCalculator {
+public class HawaiianCalculator extends PriceCalculator {
     public static void main(String[] args) {
         HawaiianCalculator hawaiianCalculator = new HawaiianCalculator();
 
@@ -13,6 +13,10 @@ public class HawaiianCalculator {
             System.out.printf("size %d  price %f\n", size, price);
         }
         ;
+    }
+
+    public HawaiianCalculator() {
+        super(null, null);
     }
 
     public double getPrice(Pizza pizza) {
