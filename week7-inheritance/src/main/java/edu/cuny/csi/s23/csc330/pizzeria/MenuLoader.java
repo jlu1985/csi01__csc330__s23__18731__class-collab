@@ -36,16 +36,16 @@ public class MenuLoader {
         return menu;
     }
 
-    private static Pizza buildPizzaMenu(Properties p, int i) {
+    private static PizzaMenuItem buildPizzaMenu(Properties p, int i) {
         String property = p.getProperty(String.format("menu.pizza.%d.type", i));
         PizzaType pizzaType = PizzaType.valueOf(property.trim().toUpperCase());
 
         String sizeStr = p.getProperty(String.format("menu.pizza.%d.size", i));
         int size = Integer.parseInt(sizeStr);
-        Pizza pizza = new Pizza(pizzaType, Crust.REGULAR);
-        pizza.addSize(size);
-        System.out.println(pizzaType + " property " + property);
-        System.out.println(pizza);
-        return pizza;
+        PizzaMenuItem pizzaMenuItem = new PizzaMenuItem();
+        pizzaMenuItem.setPizzaType(pizzaType);
+        pizzaMenuItem.addSize(size);
+        System.out.println(pizzaMenuItem);
+        return pizzaMenuItem;
     }
 }

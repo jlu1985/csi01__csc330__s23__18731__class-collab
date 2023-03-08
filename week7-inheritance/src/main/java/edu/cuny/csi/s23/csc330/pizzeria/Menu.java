@@ -4,27 +4,27 @@ import java.util.ArrayList;
 
 public class Menu {
 
-    private ArrayList<MenuItem> menuItems;
+    private ArrayList<PizzaMenuItem> pizzaMenuItems;
 
-    public ArrayList<MenuItem> getMenuItems() {
-        return menuItems;
+    public ArrayList<PizzaMenuItem> getMenuItems() {
+        return pizzaMenuItems;
     }
 
     private PriceCalculator priceCalculator;
 
     public Menu() {
-        menuItems = new ArrayList<>();
+        pizzaMenuItems = new ArrayList<>();
     }
 
-    public MenuItem get(int choice) {
-        if (menuItems.size() <= choice) {
+    public PizzaMenuItem get(int choice) {
+        if (pizzaMenuItems.size() <= choice) {
             return null;
         }
-        return menuItems.get(choice + 1);
+        return pizzaMenuItems.get(choice);
     }
 
-    public void add(MenuItem buildPizzaMenu) {
-        menuItems.add(buildPizzaMenu);
+    public void add(PizzaMenuItem buildPizzaMenu) {
+        pizzaMenuItems.add(buildPizzaMenu);
     }
 
     public void setPriceCalculator(PriceCalculator priceCalculator1) {

@@ -17,9 +17,9 @@ public class Display {
     }
 
     public void displayMenu(Menu menu) {
-        ArrayList<MenuItem> menuItems = menu.getMenuItems();
-        for (var i = 0; i < menuItems.size(); i++) {
-            out.println("i." + menuItems.get(0));
+        ArrayList<PizzaMenuItem> pizzaMenuItems = menu.getMenuItems();
+        for (var i = 0; i < pizzaMenuItems.size(); i++) {
+            out.printf("%d %s\n", i, pizzaMenuItems.get(i));
         }
     }
 }

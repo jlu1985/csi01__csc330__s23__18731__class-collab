@@ -41,16 +41,29 @@ public class TextApp {
             display.displayMenu(menu);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
-            MenuItem pizza = menu.get(v);
+            PizzaMenuItem selectedItem = this.menu.get(v);
 
-            if (pizza == null) {
+            if (selectedItem == null) {
                 display.say("checkout ");
                 display.displayOrder(order);
                 System.exit(0);
             }
-            order.add(
-                    new OrderItem(
-                            pizza.getType().toString(), priceCalculator.getPrice((Pizza) pizza)));
+
+            PizzaType type = selectedItem.getPizzaType();
+            Pizza pizza1 = new Pizza(type, Crust.REGULAR);
+            int size;
+            boolean valid = false;
+            do {
+                display.say("Choose a size " + selectedItem.getSizes());
+                size = scanner.nextInt();
+                valid = selectedItem.hasSize(size);
+                if (!valid) {
+                    display.say("invalid size " + size);
+                }
+            } while (!valid);
+
+            pizza1.setSize(size);
+            order.add(new OrderItem(pizza1.toString(), priceCalculator.getPrice(pizza1)));
             display.displayOrder(order);
         }
     }

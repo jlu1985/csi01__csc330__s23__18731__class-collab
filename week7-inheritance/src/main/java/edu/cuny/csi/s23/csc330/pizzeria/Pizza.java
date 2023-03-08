@@ -2,39 +2,12 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.ArrayList;
 
-public class Pizza extends MenuItem {
-    public ArrayList getToppings() {
-        return toppings;
-    }
-
-    private int size = 8;
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public ArrayList getSizes() {
-        return sizes;
-    }
-
-    @Override
-    public PizzaType getType() {
-        return type;
-    }
-
-    public Crust getCrust() {
-        return crust;
-    }
-
-    private ArrayList toppings;
-    private ArrayList sizes;
-
-    private PizzaType type;
-    private Crust crust;
+public class Pizza extends PizzaMenuItem {
+    private int size;
+    private final ArrayList toppings;
+    private final ArrayList sizes;
+    private final PizzaType type;
+    private final Crust crust;
 
     public Pizza(PizzaType type, Crust crust) {
         this.toppings = new ArrayList();
@@ -47,8 +20,24 @@ public class Pizza extends MenuItem {
         this(type, Crust.REGULAR);
     }
 
-    public void addSize(int size) {
-        sizes.add(size);
+    public ArrayList getToppings() {
+        return toppings;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public PizzaType getType() {
+        return type;
+    }
+
+    public Crust getCrust() {
+        return crust;
     }
 
     @Override
