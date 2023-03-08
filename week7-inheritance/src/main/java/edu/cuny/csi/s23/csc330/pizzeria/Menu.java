@@ -10,8 +10,6 @@ public class Menu {
         return pizzaMenuItems;
     }
 
-    private PriceCalculator priceCalculator;
-
     public Menu() {
         pizzaMenuItems = new ArrayList<>();
     }
@@ -25,9 +23,5 @@ public class Menu {
 
     public void add(PizzaMenuItem buildPizzaMenu) {
         pizzaMenuItems.add(buildPizzaMenu);
-    }
-
-    public void setPriceCalculator(PriceCalculator priceCalculator1) {
-        this.priceCalculator = priceCalculator1;
     }
 }

@@ -27,8 +27,6 @@ public class TextApp {
 
         PriceCalculator priceCalculator1 = new PriceCalculator();
 
-        menu.setPriceCalculator(priceCalculator1);
-
         TextApp textApp = new TextApp(new Display(), priceCalculator1, menu, new OrderService());
 
         textApp.startBusiness();
@@ -37,7 +35,7 @@ public class TextApp {
     private void startBusiness() {
         Order order = new Order("1");
         while (true) {
-            display.displayMenu(menu);
+            display.displayMenu(menu, priceCalculator);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
             PizzaMenuItem selectedItem = this.menu.get(v);
@@ -63,7 +61,7 @@ public class TextApp {
 
             pizza1.setSize(size);
             order.add(new OrderItem(pizza1.toString(), priceCalculator.getPrice(pizza1)));
-            display.displayOrder(order);
+            //            display.displayOrder(order);
         }
     }
 }
