@@ -28,4 +28,8 @@ public class PriceCalculator {
     protected double multiply(double price, double percent) {
         return new BigDecimal(price).multiply(new BigDecimal(percent)).doubleValue();
     }
+
+    protected double times1p6(double basePrice) {
+        return multiply(basePrice, 1.6);
+    }
 }

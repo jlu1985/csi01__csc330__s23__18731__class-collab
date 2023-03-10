@@ -11,8 +11,4 @@ public class PlainCheeseCalculator extends HawaiianCalculator {
             default -> throw new IllegalStateException("Unexpected value: " + pizza.getSize());
         };
     }
-
-    protected double times1p6(double basePrice) {
-        return multiply(basePrice, 1.6);
-    }
 }
