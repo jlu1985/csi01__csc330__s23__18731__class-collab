@@ -1,6 +1,7 @@
 package edu.cuny.csi.s23.csc330.pizzeria.price;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class PriceUtils {
     private static final BigDecimal CENTS_99 = BigDecimal.valueOf(0.99);
@@ -55,5 +56,13 @@ public class PriceUtils {
             return dollarValue.add(CENTS_50).doubleValue();
         }
         return dollarValue.add(CENTS_25).doubleValue();
+    }
+
+    public static double add(double a, double b) {
+        return scale(BigDecimal.valueOf(a).add(BigDecimal.valueOf(b)));
+    }
+
+    private static double scale(BigDecimal input) {
+        return input.setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 }
