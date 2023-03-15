@@ -12,8 +12,6 @@ folder structures
 | week3 | class project snapshot at week 3 |
 | week5-class | We spent some time think a little in UML class diagram and Sequence diagram then got some code written |
 | week6-properties | properties file, file IO, stream reader/writer, arrays and Collections |
-
-| week6-properties | properties file, file IO, stream reader/writer |
 | week7-inheritance | inheritance, use case and unit test |
 | week8-abstraction | abstraction and interface, polymorphism |
 
