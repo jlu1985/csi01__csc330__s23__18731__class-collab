@@ -22,7 +22,7 @@ public class Display {
         out.printf("   Total: $%.2f", order.getTotal());
     }
 
-    public void displayMenu(Menu menu, PriceCalculator priceCalculator) {
+    public void displayMenu(Menu menu, PriceCalculator abstractPriceCalculator) {
         ArrayList<PizzaMenuItem> pizzaMenuItems = menu.getMenuItems();
         for (var i = 0; i < pizzaMenuItems.size(); i++) {
             PizzaMenuItem pizzaMenuItem = pizzaMenuItems.get(i);
@@ -30,7 +30,7 @@ public class Display {
             for (int size : pizzaMenuItem.getSizes()) {
                 Pizza pizza = new Pizza(pizzaMenuItem.getPizzaType());
                 pizza.setSize(size);
-                double price = priceCalculator.getPrice(pizza);
+                double price = abstractPriceCalculator.getPrice(pizza);
                 out.printf("   %din - $%.2f\n", size, price);
             }
         }

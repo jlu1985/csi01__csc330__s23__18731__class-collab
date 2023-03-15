@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TextApp {
     private final Display display;
-    private final PriceCalculator priceCalculator;
+    private final PriceCalculator abstractPriceCalculator;
     private final Menu menu;
     private final OrderService orderService;
 
@@ -12,11 +12,11 @@ public class TextApp {
 
     public TextApp(
             Display display,
-            PriceCalculator priceCalculator,
+            PriceCalculator abstractPriceCalculator,
             Menu menu,
             OrderService orderService) {
         this.display = display;
-        this.priceCalculator = priceCalculator;
+        this.abstractPriceCalculator = abstractPriceCalculator;
         this.menu = menu;
         this.orderService = orderService;
     }
@@ -25,9 +25,10 @@ public class TextApp {
         MenuLoader menuLoader = new MenuLoader();
         Menu menu = menuLoader.createMenu();
 
-        PriceCalculator priceCalculator1 = new PriceCalculator();
+        PriceCalculator abstractPriceCalculator1 = new PriceRouterCalculator();
 
-        TextApp textApp = new TextApp(new Display(), priceCalculator1, menu, new OrderService());
+        TextApp textApp =
+                new TextApp(new Display(), abstractPriceCalculator1, menu, new OrderService());
 
         textApp.startBusiness();
     }
@@ -35,7 +36,7 @@ public class TextApp {
     private void startBusiness() {
         Order order = new Order("1");
         while (true) {
-            display.displayMenu(menu, priceCalculator);
+            display.displayMenu(menu, abstractPriceCalculator);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
             PizzaMenuItem selectedItem = this.menu.get(v);
@@ -60,7 +61,7 @@ public class TextApp {
             } while (!valid);
 
             pizza1.setSize(size);
-            order.add(new OrderItem(pizza1.toString(), priceCalculator.getPrice(pizza1)));
+            order.add(new OrderItem(pizza1.toString(), abstractPriceCalculator.getPrice(pizza1)));
             //            display.displayOrder(order);
         }
     }

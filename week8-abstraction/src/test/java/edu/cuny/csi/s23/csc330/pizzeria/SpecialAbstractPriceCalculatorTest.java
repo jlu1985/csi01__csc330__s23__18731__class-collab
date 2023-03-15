@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-class SpecialPriceCalculatorTest {
-    SpecialPriceCalculator specialPriceCalculator = new SpecialPriceCalculator();
+class SpecialAbstractPriceCalculatorTest {
+    SpecialAbstractPriceCalculator specialPriceCalculator = new SpecialAbstractPriceCalculator();
 
     private Pizza newPizza(int i) {
         Pizza pizza = new Pizza(PizzaType.SPECIAL);

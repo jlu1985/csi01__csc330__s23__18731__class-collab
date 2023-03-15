@@ -2,9 +2,9 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.List;
 
-public class HawaiianCalculator extends PriceCalculator {
+public class HawaiianCalculatorAbstract extends AbstractPriceCalculator {
     public static void main(String[] args) {
-        HawaiianCalculator hawaiianCalculator = new HawaiianCalculator();
+        HawaiianCalculatorAbstract hawaiianCalculator = new HawaiianCalculatorAbstract();
 
         for (int size : List.of(8, 10, 12)) {
             Pizza pizza = new Pizza(PizzaType.HAWAIIAN, Crust.THIN);
@@ -15,8 +15,9 @@ public class HawaiianCalculator extends PriceCalculator {
         ;
     }
 
-    public double getPrice(Pizza pizza) {
-        return switch (pizza.getSize()) {
+    @Override
+    public double getPrice(int size) {
+        return switch (size) {
             case 8 -> get8inch();
             case 10 -> get10inch();
             case 12 -> get12inch();
@@ -25,7 +26,7 @@ public class HawaiianCalculator extends PriceCalculator {
     }
 
     private double get8inch() {
-        return PriceCalculator.BASE_PRICE * 1.5;
+        return AbstractPriceCalculator.BASE_PRICE * 1.5;
     }
 
     private double get10inch() {

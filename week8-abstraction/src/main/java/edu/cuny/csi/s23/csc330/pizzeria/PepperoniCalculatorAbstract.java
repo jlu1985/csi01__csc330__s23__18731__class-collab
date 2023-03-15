@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PepperoniCalculator extends PriceCalculator {
+public class PepperoniCalculatorAbstract extends AbstractPriceCalculator {
 
     public static void main(String[] args) {
-        PepperoniCalculator pepperoniCalculator = new PepperoniCalculator();
+        PepperoniCalculatorAbstract pepperoniCalculator = new PepperoniCalculatorAbstract();
         for (int size : List.of(8, 10, 12, 14)) {
             Pizza pizza = new Pizza(PizzaType.HAWAIIAN, Crust.THIN);
             pizza.setSize(size);
@@ -18,20 +18,17 @@ public class PepperoniCalculator extends PriceCalculator {
 
     private final Map<Integer, Double> prices;
 
-    public PepperoniCalculator() {
+    public PepperoniCalculatorAbstract() {
         prices = new HashMap<>();
         prices.put(10, 1.2);
         prices.put(12, 1.4);
         prices.put(14, 1.6);
     }
 
-    public double getPrice(Pizza pizza) {
-        return getPrice(pizza.getSize());
-    }
-
-    private double getPrice(int size) {
+    @Override
+    protected double getPrice(int size) {
         if (size == 8) {
-            return PriceCalculator.BASE_PRICE * 1.1;
+            return AbstractPriceCalculator.BASE_PRICE * 1.1;
         }
         return getPrice(8) * prices.get(size);
     }
