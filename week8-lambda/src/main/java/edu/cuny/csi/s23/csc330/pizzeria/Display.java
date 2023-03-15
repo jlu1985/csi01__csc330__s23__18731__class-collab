@@ -1,10 +1,10 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
-import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
-
 import static java.lang.System.out;
 
+import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Display {
     public void say(String word) {
@@ -15,10 +15,19 @@ public class Display {
         out.println("Your order:");
 
         out.println();
-        ArrayList<OrderItem> orderItems = order.getOrderItems();
-        for (var i = 0; i < orderItems.size(); i++) {
-            OrderItem orderItem = orderItems.get(i);
-            out.printf("%d. %s , $%.2f\n", i, orderItem.getDescription(), orderItem.getPrice());
+        List<OrderItem> saleOrderItems = order.getOrderItems();
+        for (var i = 0; i < saleOrderItems.size(); i++) {
+            OrderItem saleOrderItem = saleOrderItems.get(i);
+            out.printf(
+                    "%d. %s , $%.2f\n",
+                    i, saleOrderItem.getDescription(), saleOrderItem.getPrice());
+
+            List<OrderItem> subItems = saleOrderItem.getSubItems();
+            for (OrderItem orderItem : subItems) {
+                out.printf("  - %s, $%.2f%n", orderItem.getDescription(), orderItem.getPrice());
+            }
+
+            out.printf("  - tax: $%.2f%n", saleOrderItem.getSalesTax());
         }
 
         out.printf("   Total: $%.2f", order.getTotal());

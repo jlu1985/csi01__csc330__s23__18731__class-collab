@@ -2,7 +2,7 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.ArrayList;
 
-public class Pizza {
+public class Pizza implements SaleItem {
     private int size;
     private final ArrayList toppings;
 
