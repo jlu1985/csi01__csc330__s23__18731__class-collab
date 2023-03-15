@@ -9,7 +9,7 @@ public abstract class AbstractPriceCalculator implements PriceCalculator {
 
     @Override
     public double getPrice(Pizza pizza) {
-        return getPrice(pizza.getSize());
+        return PriceUtils.roundToX9Cents(getPrice(pizza.getSize()));
     }
 
     protected double times1p2(double price) {

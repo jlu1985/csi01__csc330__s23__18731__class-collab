@@ -20,11 +20,11 @@ class SpecialAbstractPriceCalculatorTest {
 
     @Test
     void getPrice10() {
-        assertEquals(12.0, specialPriceCalculator.getPrice(newPizza(10)));
+        assertEquals(12.49, specialPriceCalculator.getPrice(newPizza(10)));
     }
 
     @Test
     void getPrice14() {
-        assertEquals(16.0, specialPriceCalculator.getPrice(newPizza(14)));
+        assertEquals(16.49, specialPriceCalculator.getPrice(newPizza(14)));
     }
 }
