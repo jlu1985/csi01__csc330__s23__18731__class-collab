@@ -63,6 +63,10 @@ public class PriceUtils {
     }
 
     private static double scale(BigDecimal input) {
-        return input.setScale(2, RoundingMode.HALF_UP).doubleValue();
+        return input.setScale(3, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public static double multiply(double price, double v) {
+        return scale(BigDecimal.valueOf(price).multiply(BigDecimal.valueOf(v)));
     }
 }
