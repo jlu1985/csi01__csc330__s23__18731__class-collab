@@ -1,4 +1,4 @@
-package edu.cuny.csi.s23.csc330.pizzeria;
+package edu.cuny.csi.s23.csc330.pizzeria.price;
 
 import java.math.BigDecimal;
 

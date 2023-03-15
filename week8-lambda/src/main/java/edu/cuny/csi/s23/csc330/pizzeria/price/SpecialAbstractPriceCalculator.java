@@ -1,4 +1,7 @@
-package edu.cuny.csi.s23.csc330.pizzeria;
+package edu.cuny.csi.s23.csc330.pizzeria.price;
+
+import edu.cuny.csi.s23.csc330.pizzeria.Pizza;
+import edu.cuny.csi.s23.csc330.pizzeria.PizzaType;
 
 import java.util.List;
 import java.util.stream.Stream;
