@@ -2,12 +2,11 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceRouterCalculator;
-
 import java.util.Scanner;
 
 public class TextApp {
     private final Display display;
-    private final PriceCalculator abstractPriceCalculator;
+    private final PriceCalculator priceCalculator;
     private final Menu menu;
     private final OrderService orderService;
 
@@ -15,11 +14,11 @@ public class TextApp {
 
     public TextApp(
             Display display,
-            PriceCalculator abstractPriceCalculator,
+            PriceCalculator priceCalculator,
             Menu menu,
             OrderService orderService) {
         this.display = display;
-        this.abstractPriceCalculator = abstractPriceCalculator;
+        this.priceCalculator = priceCalculator;
         this.menu = menu;
         this.orderService = orderService;
     }
@@ -39,7 +38,7 @@ public class TextApp {
     private void startBusiness() {
         Order order = new Order("1");
         while (true) {
-            display.displayMenu(menu, abstractPriceCalculator);
+            display.displayMenu(menu, priceCalculator);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
             PizzaMenuItem selectedItem = this.menu.get(v);
@@ -64,7 +63,7 @@ public class TextApp {
             } while (!valid);
 
             pizza1.setSize(size);
-            order.add(new OrderItem(pizza1.toString(), abstractPriceCalculator.getPrice(pizza1)));
+            order.add(new SaleOrderItem(pizza1, priceCalculator));
             //            display.displayOrder(order);
         }
     }

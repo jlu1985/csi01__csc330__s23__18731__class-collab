@@ -1,7 +1,6 @@
 package edu.cuny.csi.s23.csc330.pizzeria.price;
 
-import edu.cuny.csi.s23.csc330.pizzeria.Pizza;
-
+import edu.cuny.csi.s23.csc330.pizzeria.SaleItem;
 import java.math.BigDecimal;
 
 public abstract class AbstractPriceCalculator implements PriceCalculator {
@@ -10,7 +9,12 @@ public abstract class AbstractPriceCalculator implements PriceCalculator {
     protected abstract double getPrice(int size);
 
     @Override
-    public double getPrice(Pizza pizza) {
+    public double getSalesTax(SaleItem saleItem) {
+        return PriceUtils.multiply(getPrice(saleItem), 0.1);
+    }
+
+    @Override
+    public double getPrice(SaleItem pizza) {
         return PriceUtils.roundToX9Cents(getPrice(pizza.getSize()));
     }
 

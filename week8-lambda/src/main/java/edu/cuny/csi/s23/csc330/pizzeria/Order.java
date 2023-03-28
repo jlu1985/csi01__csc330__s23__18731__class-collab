@@ -1,6 +1,8 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import edu.cuny.csi.s23.csc330.pizzeria.price.PriceUtils;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Order {
@@ -8,24 +10,27 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id='" + id + '\'' + ", orderItems=" + orderItems + '}';
+        return "Order{" + "id='" + id + '\'' + ", orderItems=" + saleOrderItems + '}';
     }
 
-    private ArrayList<OrderItem> orderItems;
+    private List<OrderItem> saleOrderItems;
 
     public Order(String id) {
-        this.orderItems = new ArrayList();
+        this.saleOrderItems = new ArrayList();
     }
 
-    public void add(OrderItem item) {
-        this.orderItems.add(item);
+    public void add(SaleOrderItem item) {
+        this.saleOrderItems.add(item);
     }
 
-    public ArrayList getOrderItems() {
-        return new ArrayList(orderItems);
+    public List<OrderItem> getOrderItems() {
+        return new ArrayList(saleOrderItems);
     }
 
     public Double getTotal() {
-        return orderItems.stream().collect(Collectors.summingDouble(OrderItem::getPrice));
+        return saleOrderItems.stream()
+                .collect(
+                        Collectors.summingDouble(
+                                (i) -> PriceUtils.add(i.getPrice(), i.getSalesTax())));
     }
 }
