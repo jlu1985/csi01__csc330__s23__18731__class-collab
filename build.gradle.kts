@@ -23,6 +23,10 @@ allprojects {
 
 
     dependencies {
+        val jacksonVer = "2.14.2"
+        implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVer}")
+        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVer}")
+        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVer}")
         testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     }
     tasks.getByName<Test>("test") {
