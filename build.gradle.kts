@@ -8,7 +8,7 @@
 plugins {
     java
     application
-    id("com.diffplug.spotless").version("6.15.0")
+    id("com.diffplug.spotless").version("6.18.0")
 }
 
 allprojects {
@@ -20,6 +20,7 @@ allprojects {
     apply(plugin = "java")
     apply(plugin = "com.diffplug.spotless")
     apply(plugin = "application")
+
 
     dependencies {
         testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")

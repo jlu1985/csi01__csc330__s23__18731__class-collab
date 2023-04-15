@@ -11,38 +11,49 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 public class GasPrice {
 
     public static void main(String[] args) throws Exception {
 
         Map<Integer, StatsByYear> byYearMap = new HashMap<>();
         try (BufferedReader bufferedReader =
-                     new BufferedReader(
-                             new InputStreamReader(
-                                     GasPrice.class.getClassLoader().getResourceAsStream("csc330/ch9/gas.txt")))) {
+                new BufferedReader(
+                        new InputStreamReader(
+                                GasPrice.class
+                                        .getClassLoader()
+                                        .getResourceAsStream("csc330/ch9/gas.txt")))) {
 
-            List<DateAndPrice> lowest = bufferedReader.lines()
-                    .map(DateAndPrice::parse)
-                    .map(dateAndPrice -> {
-                        byYearMap.compute(dateAndPrice.year(),
-                                (yearKey, existingStatsByYear) ->
-                                        Optional.ofNullable(existingStatsByYear)
-                                                .orElseGet(() -> new StatsByYear(yearKey))
-                                                .add(dateAndPrice));
-                        return dateAndPrice;
-                    }).sorted(Comparator.comparing(DateAndPrice::price)
-                            .thenComparing(DateAndPrice::year)
-                            .thenComparing(DateAndPrice::month)
-                            .thenComparing(DateAndPrice::day))
-                    .toList();
+            List<DateAndPrice> lowest =
+                    bufferedReader
+                            .lines()
+                            .map(DateAndPrice::parse)
+                            .map(
+                                    dateAndPrice -> {
+                                        byYearMap.compute(
+                                                dateAndPrice.year(),
+                                                (yearKey, existingStatsByYear) ->
+                                                        Optional.ofNullable(existingStatsByYear)
+                                                                .orElseGet(
+                                                                        () ->
+                                                                                new StatsByYear(
+                                                                                        yearKey))
+                                                                .add(dateAndPrice));
+                                        return dateAndPrice;
+                                    })
+                            .sorted(
+                                    Comparator.comparing(DateAndPrice::price)
+                                            .thenComparing(DateAndPrice::year)
+                                            .thenComparing(DateAndPrice::month)
+                                            .thenComparing(DateAndPrice::day))
+                            .toList();
 
             byYearMap.values().stream().forEach(System.out::println);
 
             for (int i = 0, j = lowest.size() - 1; i < lowest.size(); i++, j--) {
-                System.out.printf("loToHi=%s  hiToLo=%s%n", lowest.get(i).rawString(), lowest.get(j).rawString());
+                System.out.printf(
+                        "loToHi=%s  hiToLo=%s%n",
+                        lowest.get(i).rawString(), lowest.get(j).rawString());
             }
-
         }
     }
 
@@ -56,7 +67,6 @@ public class GasPrice {
             var day = Integer.parseInt(mmddyyyy[1]);
             return new DateAndPrice(raw, year, month, day, price);
         }
-
     }
 
     static class StatsByYear {
@@ -71,24 +81,32 @@ public class GasPrice {
 
         @Override
         public String toString() {
-            return "StatsByYear{" +
-                    "year=" + year +
-                    ", avgByMonth=" + avgByMonth +
-                    ", highest=" + highest +
-                    ", lowest=" + lowest +
-                    ", yearAvg=" + getYearAvg() +
-                    '}';
+            return "StatsByYear{"
+                    + "year="
+                    + year
+                    + ", avgByMonth="
+                    + avgByMonth
+                    + ", highest="
+                    + highest
+                    + ", lowest="
+                    + lowest
+                    + ", yearAvg="
+                    + getYearAvg()
+                    + '}';
         }
 
         public StatsByYear add(DateAndPrice dateAndPrice) {
             if (dateAndPrice.year() != this.year) {
                 return this;
             }
-            avgByMonth.merge(dateAndPrice.month, dateAndPrice.price,
-                    (a, b) -> BigDecimal.valueOf(a + b)
-                            .divide(BigDecimal.valueOf(2))
-                            .setScale(3, RoundingMode.HALF_UP)
-                            .doubleValue());
+            avgByMonth.merge(
+                    dateAndPrice.month,
+                    dateAndPrice.price,
+                    (a, b) ->
+                            BigDecimal.valueOf(a + b)
+                                    .divide(BigDecimal.valueOf(2))
+                                    .setScale(3, RoundingMode.HALF_UP)
+                                    .doubleValue());
 
             if (dateAndPrice.price > highest) {
                 highest = dateAndPrice.price;
@@ -98,16 +116,15 @@ public class GasPrice {
                 lowest = dateAndPrice.price;
             }
             return this;
-
         }
 
         public double getYearAvg() {
-            return BigDecimal.valueOf(avgByMonth.values().stream()
-                            .collect(Collectors.summingDouble(Double::doubleValue)) / avgByMonth.size())
-                    .setScale(3, RoundingMode.HALF_UP).doubleValue();
+            return BigDecimal.valueOf(
+                            avgByMonth.values().stream()
+                                            .collect(Collectors.summingDouble(Double::doubleValue))
+                                    / avgByMonth.size())
+                    .setScale(3, RoundingMode.HALF_UP)
+                    .doubleValue();
         }
-
-
     }
 }
-

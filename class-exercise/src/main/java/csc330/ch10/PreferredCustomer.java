@@ -3,22 +3,24 @@ package csc330.ch10;
 import java.util.stream.IntStream;
 
 public class PreferredCustomer {
-    private double purchase =0;
+    private double purchase = 0;
     private double discountPercent = 1;
 
     public static void main(String[] args) {
         PreferredCustomer preferredCustomer = new PreferredCustomer();
 
-        IntStream.range(1, 25).boxed()
-                .forEach(i -> {
-                    preferredCustomer.add(100.0);
-                    System.out.println(preferredCustomer);
-                });
+        IntStream.range(1, 25)
+                .boxed()
+                .forEach(
+                        i -> {
+                            preferredCustomer.add(100.0);
+                            System.out.println(preferredCustomer);
+                        });
     }
 
     public void add(Double purchaseAmount) {
         // look purchase
-        //look discountPercent
+        // look discountPercent
 
         if (purchase >= 500) {
             discountPercent = 0.95;
@@ -39,9 +41,11 @@ public class PreferredCustomer {
 
     @Override
     public String toString() {
-        return "PreferredCustomer{" +
-                "purchase=" + purchase +
-                ", discountPercent=" + discountPercent +
-                '}';
+        return "PreferredCustomer{"
+                + "purchase="
+                + purchase
+                + ", discountPercent="
+                + discountPercent
+                + '}';
     }
 }
