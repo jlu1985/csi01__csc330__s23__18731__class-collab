@@ -4,12 +4,35 @@ import static java.lang.System.out;
 
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Display {
+    private final Scanner in;
+    private final PrintStream out;
+
+    public Display() {
+        // could remove or keep
+        // scaffold code making the code still compile
+
+        this(System.in, System.out);
+    }
+
+    public Display(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
+    }
+
     public void say(String word) {
         out.println(word);
+    }
+
+    public int sayAndGetInt(String word) {
+        say(word);
+        return in.nextInt();
     }
 
     public void displayOrder(Order order) {
