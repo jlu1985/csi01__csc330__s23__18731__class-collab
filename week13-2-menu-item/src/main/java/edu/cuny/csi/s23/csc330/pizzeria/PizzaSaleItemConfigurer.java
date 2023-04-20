@@ -1,11 +1,11 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
 public class PizzaSaleItemConfigurer {
+    private final PizzaMenuItem selectedItem;
+
     public PizzaSaleItemConfigurer(PizzaMenuItem pizzaMenuItem) {
         this.selectedItem = pizzaMenuItem;
     }
-
-    private PizzaMenuItem selectedItem;
 
     public SaleItem takeOrder(Display display) {
         Pizza pizza1 = new Pizza(selectedItem.getPizzaType(), Crust.REGULAR);

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PizzaMenuItem {
+public class PizzaMenuItem implements MenuItem {
     private PizzaType pizzaType;
     private HashSet<Integer> sizes = new HashSet<>();
 
