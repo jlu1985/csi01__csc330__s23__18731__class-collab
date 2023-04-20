@@ -58,15 +58,21 @@ public class Display {
     }
 
     public void displayMenu(Menu menu, PriceCalculator abstractPriceCalculator) {
-        ArrayList<PizzaMenuItem> pizzaMenuItems = menu.getMenuItems();
+        ArrayList<MenuItem> pizzaMenuItems = menu.getMenuItems();
         for (var i = 0; i < pizzaMenuItems.size(); i++) {
-            PizzaMenuItem pizzaMenuItem = pizzaMenuItems.get(i);
-            out.printf("%d. %s\n", i, pizzaMenuItem.getPizzaType());
-            for (int size : pizzaMenuItem.getSizes()) {
-                Pizza pizza = new Pizza(pizzaMenuItem.getPizzaType());
-                pizza.setSize(size);
-                double price = abstractPriceCalculator.getPrice(pizza);
-                out.printf("   %din - $%.2f\n", size, price);
+            MenuItem menuItem = pizzaMenuItems.get(i);
+            if (menuItem instanceof PizzaMenuItem pizzaMenuItem) {
+                out.printf("%d. %s\n", i, pizzaMenuItem.getPizzaType());
+                for (int size : pizzaMenuItem.getSizes()) {
+                    Pizza pizza = new Pizza(pizzaMenuItem.getPizzaType());
+                    pizza.setSize(size);
+                    double price = abstractPriceCalculator.getPrice(pizza);
+                    out.printf("   %din - $%.2f\n", size, price);
+                }
+            }
+
+            if (menuItem instanceof WingMenuItem wingMenuItem) {
+                out.printf("%d, %s\n", i, wingMenuItem.getSizes());
             }
         }
     }

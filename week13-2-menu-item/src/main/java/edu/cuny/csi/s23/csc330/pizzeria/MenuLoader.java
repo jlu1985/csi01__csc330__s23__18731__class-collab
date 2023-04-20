@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class MenuLoader {
 
-    private static PizzaMenuItem buildPizzaMenu(Properties p, int i) {
+    private static MenuItem buildPizzaMenu(Properties p, int i) {
         String property = p.getProperty(String.format("menu.pizza.%d.type", i));
         PizzaType pizzaType = PizzaType.valueOf(property.trim().toUpperCase());
 
@@ -43,6 +43,9 @@ public class MenuLoader {
         for (var i = 0; i < numberOfItmes; i++) {
             menu.add(buildPizzaMenu(p, i));
         }
+
+        menu.add(new WingMenuItem());
+
         return menu;
     }
 }

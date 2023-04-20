@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Menu {
 
-    private ArrayList<PizzaMenuItem> pizzaMenuItems;
+    private ArrayList<MenuItem> pizzaMenuItems;
 
-    public ArrayList<PizzaMenuItem> getMenuItems() {
+    public ArrayList<MenuItem> getMenuItems() {
         return pizzaMenuItems;
     }
 
@@ -14,22 +14,26 @@ public class Menu {
         pizzaMenuItems = new ArrayList<>();
     }
 
-    public PizzaMenuItem get(int choice) {
+    public MenuItem get(int choice) {
         if (pizzaMenuItems.size() <= choice) {
             return null;
         }
         return pizzaMenuItems.get(choice);
     }
 
-    public void add(PizzaMenuItem buildPizzaMenu) {
+    public void add(MenuItem buildPizzaMenu) {
         pizzaMenuItems.add(buildPizzaMenu);
     }
 
     public PizzaSaleItemConfigurer getConfigurer(int v) {
-        PizzaMenuItem pizzaMenuItem = get(v);
+        MenuItem pizzaMenuItem = get(v);
         if (pizzaMenuItem == null) {
             return null;
         }
-        return new PizzaSaleItemConfigurer(pizzaMenuItem);
+        if (pizzaMenuItem instanceof PizzaMenuItem pmi) return new PizzaSaleItemConfigurer(pmi);
+        if (pizzaMenuItem instanceof WingMenuItem wmi) {
+            throw new NullPointerException();
+        }
+        return null;
     }
 }
