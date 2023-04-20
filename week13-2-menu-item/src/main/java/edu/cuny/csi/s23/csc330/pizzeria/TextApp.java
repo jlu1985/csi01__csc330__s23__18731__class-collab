@@ -42,7 +42,7 @@ public class TextApp {
             display.displayMenu(menu, priceCalculator);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
-            PizzaSaleItemConfigurer configurer = this.menu.getConfigurer(v);
+            SaleItemConfigurer configurer = this.menu.getConfigurer(v);
             if (configurer == null) {
                 display.say("checkout ");
                 display.displayOrder(order);
