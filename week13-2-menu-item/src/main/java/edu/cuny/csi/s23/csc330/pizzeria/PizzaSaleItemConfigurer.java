@@ -1,12 +1,13 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
-public class PizzaSaleItemConfigurer {
+public class PizzaSaleItemConfigurer implements SaleItemConfigurer {
     private final PizzaMenuItem selectedItem;
 
     public PizzaSaleItemConfigurer(PizzaMenuItem pizzaMenuItem) {
         this.selectedItem = pizzaMenuItem;
     }
 
+    @Override
     public SaleItem takeOrder(Display display) {
         Pizza pizza1 = new Pizza(selectedItem.getPizzaType(), Crust.REGULAR);
         int size;
