@@ -24,4 +24,12 @@ public class Menu {
     public void add(PizzaMenuItem buildPizzaMenu) {
         pizzaMenuItems.add(buildPizzaMenu);
     }
+
+    public PizzaSaleItemConfigurer getConfigurer(int v) {
+        PizzaMenuItem pizzaMenuItem = get(v);
+        if (pizzaMenuItem == null) {
+            return null;
+        }
+        return new PizzaSaleItemConfigurer(pizzaMenuItem);
+    }
 }

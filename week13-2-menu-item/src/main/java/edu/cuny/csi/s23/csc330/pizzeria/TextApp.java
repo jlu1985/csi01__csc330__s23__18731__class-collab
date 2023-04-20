@@ -42,28 +42,15 @@ public class TextApp {
             display.displayMenu(menu, priceCalculator);
             display.say("Choose item (exit use invalid choice)");
             int v = scanner.nextInt();
-            PizzaMenuItem selectedItem = this.menu.get(v);
-
-            if (selectedItem == null) {
+            PizzaSaleItemConfigurer configurer = this.menu.getConfigurer(v);
+            if (configurer == null) {
                 display.say("checkout ");
                 display.displayOrder(order);
                 System.exit(0);
             }
 
-            PizzaType type = selectedItem.getPizzaType();
-            Pizza pizza1 = new Pizza(type, Crust.REGULAR);
-            int size;
-            boolean valid = false;
-            do {
-                display.say("Choose a size " + selectedItem.getSizes());
-                size = scanner.nextInt();
-                valid = selectedItem.hasSize(size);
-                if (!valid) {
-                    display.say("invalid size " + size);
-                }
-            } while (!valid);
+            SaleItem pizza1 = configurer.takeOrder(display);
 
-            pizza1.setSize(size);
             order.add(new SaleOrderItem(pizza1, priceCalculator));
             //            display.displayOrder(order);
         }
