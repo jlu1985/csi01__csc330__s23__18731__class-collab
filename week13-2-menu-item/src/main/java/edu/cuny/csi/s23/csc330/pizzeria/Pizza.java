@@ -1,5 +1,11 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import edu.cuny.csi.s23.csc330.pizzeria.price.HawaiianCalculatorAbstract;
+import edu.cuny.csi.s23.csc330.pizzeria.price.PepperoniCalculatorAbstract;
+import edu.cuny.csi.s23.csc330.pizzeria.price.PlainCheeseCalculatorAbstract;
+import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
+import edu.cuny.csi.s23.csc330.pizzeria.price.SpecialAbstractPriceCalculator;
+
 import java.util.ArrayList;
 
 public class Pizza implements SaleItem {
@@ -52,5 +58,17 @@ public class Pizza implements SaleItem {
                 + ", crust="
                 + crust
                 + '}';
+    }
+
+    @Override
+    public PriceCalculator getPriceCalculator() {
+
+        return switch (getType()) {
+            case PEPPERONI -> new PepperoniCalculatorAbstract();
+            case HAWAIIAN -> new HawaiianCalculatorAbstract();
+            case SPECIAL -> new SpecialAbstractPriceCalculator();
+            case PLAIN_CHEESE -> new PlainCheeseCalculatorAbstract();
+            default -> throw new UnsupportedOperationException("pizza type not found " + getType());
+        };
     }
 }
