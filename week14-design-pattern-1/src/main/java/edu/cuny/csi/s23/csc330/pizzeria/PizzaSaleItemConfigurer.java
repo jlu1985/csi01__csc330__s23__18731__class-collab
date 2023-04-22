@@ -1,5 +1,7 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
+
 public class PizzaSaleItemConfigurer implements SaleItemConfigurer {
     private final PizzaMenuItem selectedItem;
 
@@ -8,7 +10,7 @@ public class PizzaSaleItemConfigurer implements SaleItemConfigurer {
     }
 
     @Override
-    public SaleItem takeOrder(Display display) {
+    public SaleOrderItem takeOrder(Display display, PriceCalculator priceCalculator) {
         Pizza pizza1 = new Pizza(selectedItem.getPizzaType(), Crust.REGULAR);
         int size;
         boolean valid = false;
@@ -21,6 +23,6 @@ public class PizzaSaleItemConfigurer implements SaleItemConfigurer {
         } while (!valid);
 
         pizza1.setSize(size);
-        return pizza1;
+        return new SaleOrderItem(pizza1, priceCalculator);
     }
 }

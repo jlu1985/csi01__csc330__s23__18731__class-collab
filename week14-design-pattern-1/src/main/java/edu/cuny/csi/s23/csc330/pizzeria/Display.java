@@ -49,6 +49,8 @@ public class Display {
             List<OrderItem> subItems = saleOrderItem.getSubItems();
             for (OrderItem orderItem : subItems) {
                 out.printf("  - %s, $%.2f%n", orderItem.getDescription(), orderItem.getPrice());
+                out.printf(
+                        "  - Tax %s, $%.2f%n", orderItem.getDescription(), orderItem.getSalesTax());
             }
 
             out.printf("  - tax: $%.2f%n", saleOrderItem.getSalesTax());
@@ -72,7 +74,14 @@ public class Display {
             }
 
             if (menuItem instanceof WingMenuItem wingMenuItem) {
-                out.printf("%d, %s\n", i, wingMenuItem.getSizes());
+                out.printf("%d, Wings %s\n", i, wingMenuItem.getSizes());
+                for (int size : wingMenuItem.getSizes()) {
+                    Wing wing = new Wing(size);
+                    out.printf("  %din - $%.2f\n", size, abstractPriceCalculator.getPrice(wing));
+                }
+            }
+            if (menuItem instanceof ComboMenuItem combo) {
+                out.printf("%d, Combo %s\n", i, combo);
             }
         }
     }
