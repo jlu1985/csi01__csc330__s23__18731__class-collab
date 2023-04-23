@@ -22,10 +22,27 @@ public class ComboSaleItemConfigurer implements SaleItemConfigurer {
                         return priceCalculator.getPrice(pizza) * comboMenuItem.getDiscount();
                     }
                 };
-        Pizza s = new Pizza(PizzaType.PEPPERONI);
-        s.setSize(10);
-        saleOrderItem.addSubItem(new SaleOrderItem(s, discount));
-        saleOrderItem.addSubItem(new SaleOrderItem(new Wing(10), discount));
+
+        MenuLoader menuLoader = new MenuLoader();
+        try {
+            Menu menu = menuLoader.createMenu();
+
+            display.displayMenu(menu, discount);
+
+            int i = display.sayAndGetInt("select a pizza");
+            SaleItemConfigurer configurer = menu.getConfigurer(i);
+
+            saleOrderItem.addSubItem(configurer.takeOrder(display, discount));
+
+            display.displayMenu(menu, discount);
+
+            saleOrderItem.addSubItem(
+                    menu.getConfigurer(display.sayAndGetInt("select a wing"))
+                            .takeOrder(display, discount));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return saleOrderItem;
     }

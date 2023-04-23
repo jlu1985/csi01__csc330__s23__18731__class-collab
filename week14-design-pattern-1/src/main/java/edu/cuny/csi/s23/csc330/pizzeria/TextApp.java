@@ -40,8 +40,7 @@ public class TextApp {
         Order order = new Order("1");
         while (true) {
             display.displayMenu(menu, priceCalculator);
-            display.say("Choose item (exit use invalid choice)");
-            int v = scanner.nextInt();
+            int v = display.sayAndGetInt("Choose item (exit use invalid choice)");
             SaleItemConfigurer configurer = this.menu.getConfigurer(v);
             if (configurer == null) {
                 display.say("checkout ");
