@@ -1,13 +1,23 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pizza implements SaleItem {
-    private int size;
-    private final ArrayList toppings;
 
-    private final PizzaType type;
-    private final Crust crust;
+    private int size;
+    private List<String> toppings;
+    private PizzaType type;
+    private Crust crust;
+
+    public Pizza() {}
+
+    public Pizza(PizzaType type, int size, Crust crust, List<String> toppings) {
+        this.toppings = toppings;
+        this.crust = crust;
+        this.size = size;
+        this.type = type;
+    }
 
     public Pizza(PizzaType type, Crust crust) {
         this.toppings = new ArrayList();
@@ -20,7 +30,7 @@ public class Pizza implements SaleItem {
         this(type, Crust.REGULAR);
     }
 
-    public ArrayList getToppings() {
+    public List<String> getToppings() {
         return toppings;
     }
 
@@ -52,5 +62,39 @@ public class Pizza implements SaleItem {
                 + ", crust="
                 + crust
                 + '}';
+    }
+
+    public static class PizzaBuilder {
+        Pizza pizza;
+
+        public PizzaBuilder() {
+            pizza = new Pizza();
+            pizza.toppings = new ArrayList<>();
+            pizza.crust = Crust.REGULAR;
+        }
+
+        public PizzaBuilder type(PizzaType type) {
+            pizza.type = type;
+            return this;
+        }
+
+        public PizzaBuilder size(int size) {
+            pizza.size = size;
+            return this;
+        }
+
+        public PizzaBuilder crust(Crust crust) {
+            pizza.crust = crust;
+            return this;
+        }
+
+        public PizzaBuilder toppings(String topping) {
+            pizza.toppings.add(topping);
+            return this;
+        }
+
+        public Pizza build() {
+            return this.pizza;
+        }
     }
 }
