@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pizza implements SaleItem {
+    @Override
+    public TaxCategory getTaxCategory() {
+        return TaxCategory.FOOD;
+    }
 
     private int size;
     private List<String> toppings;

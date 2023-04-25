@@ -5,5 +5,7 @@ import edu.cuny.csi.s23.csc330.pizzeria.SaleItem;
 public interface PriceCalculator {
     double getPrice(SaleItem pizza);
 
-    double getSalesTax(SaleItem saleItem);
+    default double getSalesTax(SaleItem saleItem) {
+        return TaxCalculator.getInstance().getSalesTax(saleItem.getTaxCategory());
+    }
 }
