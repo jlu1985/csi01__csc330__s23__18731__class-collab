@@ -10,11 +10,6 @@ public abstract class AbstractPriceCalculator implements PriceCalculator {
     protected abstract double getPrice(int size);
 
     @Override
-    public double getSalesTax(SaleItem saleItem) {
-        return PriceUtils.multiply(getPrice(saleItem), 0.1);
-    }
-
-    @Override
     public double getPrice(SaleItem pizza) {
         return PriceUtils.roundToX9Cents(getPrice(pizza.getSize()));
     }

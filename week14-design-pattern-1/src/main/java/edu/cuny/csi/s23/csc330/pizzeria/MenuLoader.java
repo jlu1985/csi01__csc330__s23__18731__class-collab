@@ -46,6 +46,7 @@ public class MenuLoader {
 
         menu.add(new WingMenuItem());
 
+        menu.add(new ComboMenuItem());
         return menu;
     }
 }

@@ -34,6 +34,10 @@ public class Menu {
         if (pizzaMenuItem instanceof WingMenuItem wmi) {
             return new WingSaleItemConfigurer(wmi);
         }
+
+        if (pizzaMenuItem instanceof ComboMenuItem combo) {
+            return new ComboSaleItemConfigurer(combo);
+        }
         return null;
     }
 }
