@@ -49,9 +49,7 @@ public class TextApp {
                 System.exit(0);
             }
 
-            SaleItem pizza1 = configurer.takeOrder(display);
-
-            order.add(new SaleOrderItem(pizza1, priceCalculator));
+            order.add(configurer.takeOrder(display, priceCalculator));
             //            display.displayOrder(order);
         }
     }
