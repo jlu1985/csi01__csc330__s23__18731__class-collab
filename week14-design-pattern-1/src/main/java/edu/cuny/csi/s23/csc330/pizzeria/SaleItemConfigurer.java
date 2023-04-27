@@ -1,6 +1,8 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
+
 public interface SaleItemConfigurer {
 
-    SaleItem takeOrder(Display display);
+    SaleOrderItem takeOrder(Display display, PriceCalculator priceCalculator);
 }
