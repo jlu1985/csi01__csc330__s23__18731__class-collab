@@ -1,5 +1,6 @@
 package edu.cuny.csi.s23.csc330.pizzeria.price;
 
+import edu.cuny.csi.s23.csc330.pizzeria.ComboMenuItem;
 import edu.cuny.csi.s23.csc330.pizzeria.Pizza;
 import edu.cuny.csi.s23.csc330.pizzeria.SaleItem;
 import edu.cuny.csi.s23.csc330.pizzeria.Wing;
@@ -29,6 +30,10 @@ public class PriceRouterCalculator implements PriceCalculator {
 
         if (saleItem instanceof Wing wing) {
             return new WingPriceCalculator();
+        }
+
+        if (saleItem instanceof ComboMenuItem combo) {
+            return x -> 0;
         }
         return null;
     }
