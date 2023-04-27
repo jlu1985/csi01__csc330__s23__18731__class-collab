@@ -72,7 +72,15 @@ public class Display {
             }
 
             if (menuItem instanceof WingMenuItem wingMenuItem) {
-                out.printf("%d, %s\n", i, wingMenuItem.getSizes());
+                out.printf("%d, Wings %s\n", i, wingMenuItem.getSizes());
+                for (Integer size : wingMenuItem.getSizes()) {
+                    out.printf(
+                            "   %din - $%.2f\n",
+                            size, abstractPriceCalculator.getPrice(new Wing(size)));
+                }
+            }
+            if (menuItem instanceof ComboMenuItem combo) {
+                out.printf("%d, Combo %s\n", i, combo);
             }
         }
     }

@@ -18,6 +18,7 @@ public class TaxCalculator {
         return switch (taxCategory) {
             case FOOD -> 0.085;
             case WING -> 0.2;
+            case NA -> 0;
             default -> throw new NullPointerException(String.valueOf(taxCategory));
         };
     }

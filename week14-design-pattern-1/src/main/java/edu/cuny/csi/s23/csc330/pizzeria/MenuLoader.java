@@ -2,8 +2,8 @@ package edu.cuny.csi.s23.csc330.pizzeria;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class MenuLoader {
@@ -22,7 +22,7 @@ public class MenuLoader {
         return pizzaMenuItem;
     }
 
-    public Menu createMenu() throws IOException, URISyntaxException {
+    public Menu createMenu() {
         Properties p = new Properties();
 
         /*
@@ -46,6 +46,38 @@ public class MenuLoader {
 
         menu.add(new WingMenuItem());
 
+        menu.add(new ComboMenuItem(0.85, "Pizza and Wing combo", List.of(1, 2)));
+
+        return menu;
+    }
+
+    public Menu createPizzaMenu() {
+        Properties p = new Properties();
+
+        /*
+        1. use relative path to -cp
+        2. use absolute path to the file
+          */
+
+        try (InputStream is =
+                MenuLoader.class.getClassLoader().getResourceAsStream("menu.properties")) {
+            p.load(is);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // System.out.println(p);
+        int numberOfItmes = Integer.parseInt(p.getProperty("menu.total.size"));
+        Menu menu = new Menu();
+        for (var i = 0; i < numberOfItmes; i++) {
+            menu.add(buildPizzaMenu(p, i));
+        }
+        return menu;
+    }
+
+    public Menu createWingMenu() {
+        Menu menu = new Menu();
+        menu.add(new WingMenuItem());
         return menu;
     }
 }

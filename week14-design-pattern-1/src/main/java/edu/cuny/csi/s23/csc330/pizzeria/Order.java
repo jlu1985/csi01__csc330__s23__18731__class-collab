@@ -5,6 +5,7 @@ import edu.cuny.csi.s23.csc330.pizzeria.price.PriceUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Order {
     private String id;
@@ -30,6 +31,7 @@ public class Order {
 
     public Double getTotal() {
         return saleOrderItems.stream()
+                .flatMap(x -> Stream.concat(Stream.of(x), x.getSubItems().stream()))
                 .collect(
                         Collectors.summingDouble(
                                 (i) -> PriceUtils.add(i.getPrice(), i.getSalesTax())));
