@@ -1,0 +1,12 @@
+http://localhost:8080/food/0
+
+###
+
+POST http://localhost:8080/food
+
+pepperoni
+
+###
+PUT http://localhost:8080/food
+
+pepperoni
