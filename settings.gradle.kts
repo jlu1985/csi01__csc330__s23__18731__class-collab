@@ -11,6 +11,7 @@ rootProject.name = "csi01__csc330__s23__18731__class-collab"
 
 include("class-exercise")
 include("food-service")
+include("db-server")
 /*
 include("week3")
 include("week5-class")
