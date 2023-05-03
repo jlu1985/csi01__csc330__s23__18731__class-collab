@@ -13,14 +13,12 @@ public class OrderService {
     private final ArrayList storage = new ArrayList();
 
     public static void main(String[] args) throws SQLException {
-        try (
-                Connection connection =
+        try (Connection connection =
+                DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9001/csc330")) {
 
-                        DriverManager.
-                                getConnection("jdbc:hsqldb:hsql://localhost:9001/csc330")) {
-
-
-            try (PreparedStatement psmt = connection.prepareStatement("""
+            try (PreparedStatement psmt =
+                    connection.prepareStatement(
+                            """
                     insert into orders (orderid, description, total) values (?,?,?)
                     """)) {
                 psmt.setString(1, UUID.randomUUID().toString());
@@ -30,9 +28,7 @@ public class OrderService {
             }
 
             try (PreparedStatement psmt =
-                         connection.
-                                 prepareStatement("select orderid, description,total from orders")) {
-
+                    connection.prepareStatement("select orderid, description,total from orders")) {
 
                 try (ResultSet resultSet = psmt.executeQuery()) {
 
@@ -41,10 +37,10 @@ public class OrderService {
                         System.out.printf(
                                 """
                                         orderid:%s,  description:%s, price:%f
-                                        %n""", resultSet.getString("orderid"),
-                        resultSet.getString("description"),
-                        resultSet.getDouble("total"));
-
+                                        %n""",
+                                resultSet.getString("orderid"),
+                                resultSet.getString("description"),
+                                resultSet.getDouble("total"));
                     }
                 }
             }
@@ -58,5 +54,4 @@ public class OrderService {
     public ArrayList getOrders(Date date) {
         return new ArrayList(storage);
     }
-
 }

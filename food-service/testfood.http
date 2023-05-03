@@ -10,3 +10,26 @@ pepperoni
 PUT http://localhost:8080/food
 
 pepperoni
+
+
+###
+
+GET http://localhost:8080/store/menus
+
+###
+
+PUT http://localhost:8080/food/joe/menu
+
+1.pizza
+
+###
+
+
+WEBSOCKET ws://localhost:8080/driver
+
+####
+
+WEBSOCKET ws://localhost:8080/store
+
+
+####
