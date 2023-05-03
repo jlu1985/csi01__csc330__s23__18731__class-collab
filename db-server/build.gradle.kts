@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.hsqldb:hsqldb:2.7.1")
+
 }
 
 application{
