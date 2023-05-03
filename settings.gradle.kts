@@ -24,5 +24,6 @@ include("week10-text-persist")
 include("week13-persist-2")
 include("week13-2-menu-item")
 include("week14-design-pattern-1")
- */
 include("week15-db-http")
+*/
+include("week15-2-concurrency")
