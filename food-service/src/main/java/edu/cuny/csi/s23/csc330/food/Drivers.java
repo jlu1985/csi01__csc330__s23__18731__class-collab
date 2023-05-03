@@ -6,7 +6,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
-import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -24,14 +23,18 @@ public class Drivers extends AbstractWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status)
+            throws Exception {
         this.sessions.remove(session);
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.printf("id:%s, message:%s\n",session.getId(),message.getPayload());
+    protected void handleTextMessage(WebSocketSession session, TextMessage message)
+            throws Exception {
+        System.out.printf("id:%s, message:%s\n", session.getId(), message.getPayload());
     }
 
-
+    public void notifyAll(String order) {
+        System.out.println("ok");
+    }
 }

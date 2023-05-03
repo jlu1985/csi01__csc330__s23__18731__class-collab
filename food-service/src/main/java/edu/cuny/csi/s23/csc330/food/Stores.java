@@ -21,29 +21,28 @@ public class Stores extends AbstractWebSocketHandler {
         this.menus = new ConcurrentHashMap<>();
     }
 
-
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.put(session.getId(), session);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status)
+            throws Exception {
         String id = session.getId();
         sessions.remove(id);
         menus.remove(id);
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message)
+            throws Exception {
         String msg = message.getPayload();
         menus.put(session.getId(), msg);
         System.out.printf("message from:%s, msg: %s", session.getId(), msg);
     }
 
-
     public Map<String, String> getMenus() {
         return new HashMap<>(this.menus);
     }
-
 }

@@ -1,6 +1,8 @@
 package edu.cuny.csi.s23.csc330.food;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +19,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RestController
 @RequestMapping("order")
 public class OrderController {
-    public OrderController(
-            @Qualifier("memoryOrderMap") ConcurrentHashMap<String, String> memoryOrderMap) {
-        this.memoryOrderMap = memoryOrderMap;
-    }
-
+    private final Drivers drivers;
     private final AtomicInteger id = new AtomicInteger();
     private final ConcurrentHashMap<String, String> memoryOrderMap;
+
+    public OrderController(
+            @Qualifier("memoryOrderMap") ConcurrentHashMap<String, String> memoryOrderMap,
+            @Autowired Drivers drivers) {
+        this.memoryOrderMap = memoryOrderMap;
+        this.drivers = drivers;
+    }
 
     @GetMapping("{id}")
     public String get(@PathVariable("id") String id) {
@@ -33,6 +38,16 @@ public class OrderController {
         } else {
             return s;
         }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<String> acceptOrder(@PathVariable("id") String id) {
+        String order = memoryOrderMap.get(id);
+        if (order == null) {
+            return ResponseEntity.status(404).body("not found");
+        }
+        drivers.notifyAll(order);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping()
