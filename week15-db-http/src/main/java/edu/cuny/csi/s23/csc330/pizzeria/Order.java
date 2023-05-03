@@ -18,7 +18,12 @@ public class Order {
     private List<OrderItem> saleOrderItems;
 
     public Order(String id) {
+        this.id = id;
         this.saleOrderItems = new ArrayList();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void add(SaleOrderItem item) {

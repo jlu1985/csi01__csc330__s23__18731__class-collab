@@ -27,6 +27,7 @@ allprojects {
         implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVer}")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVer}")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVer}")
+        implementation("org.hsqldb:hsqldb:2.7.1")
         testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     }
     tasks.getByName<Test>("test") {
