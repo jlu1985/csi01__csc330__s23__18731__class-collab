@@ -16,13 +16,21 @@ public class FoodServiceApplication {
     }
 
     @Bean
-    public WebSocketConfigurer websockets(Drivers drivers, Stores stores) {
+    public WebSocketConfigurer websockets(Drivers drivers, Stores stores, Admins admins) {
 
-        return registry -> registry.addHandler(drivers, "/drive").addHandler(stores, "/store");
+        return registry ->
+                registry.addHandler(drivers, "/drive")
+                        .addHandler(stores, "/store")
+                        .addHandler(admins, "/admin");
     }
 
     @Bean
     public ConcurrentHashMap<String, String> memoryOrderMap() {
+        return new ConcurrentHashMap<>();
+    }
+
+    @Bean
+    public ConcurrentHashMap<String, String> toggles() {
         return new ConcurrentHashMap<>();
     }
 }

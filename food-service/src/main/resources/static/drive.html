@@ -22,29 +22,34 @@
     var ws = null;
     var reconnect = null;
 
+    function prepend(str) {
+        const msgDiv = jQuery("#_msg")
+        const orig = msgDiv.html();
+        msgDiv.html(`<div class="row"><p>${new Date().toISOString()}: ${str}</p>` + orig);
+    }
+
     function connectDrive() {
         const protocol = location.protocol === "https" ? "wss" : "ws"
         ws = new WebSocket(`${protocol}://${location.host}/drive`)
-        const msgDiv = jQuery("#_msg")
+
         ws.addEventListener("message", message => {
 
-            msgDiv.html(msgDiv.html() + `<div class="row">${new Date()} : ${JSON.stringify(message.data)}</div>`)
+            prepend(JSON.stringify(message.data))
         });
         ws.addEventListener("open", (event) => {
-            msgDiv.html(msgDiv.html() + `<div class="row">Connected</div>`)
+            prepend("Connected")
             if (reconnect) {
                 clearInterval(reconnect);
                 reconnect = null;
             }
         });
         ws.addEventListener("close", (event) => {
-            msgDiv.html(msgDiv.html() + `<div class="row">Closed - Trying to reconnect...</div>`)
+            prepend("Closed - Trying to reconnect...")
             if (!reconnect) {
                 reconnect = setInterval(() => connectDrive(), 5000);
             }
         });
         ws.addEventListener("error", (event) => {
-            msgDiv.html(msgDiv.html() + `<div class="row">error</div>`)
             ws.close();
         });
     }
