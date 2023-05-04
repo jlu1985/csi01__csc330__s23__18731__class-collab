@@ -14,18 +14,20 @@ pepperoni
 
 ###
 
-GET http://localhost:8080/store/menus
+GET http://localhost:8080/order/0
 
 ###
 
-PUT http://localhost:8080/food/joe/menu
+PUT http://localhost:8080/order/0/accept
 
-1.pizza
+###
+POST http://localhost:8080/order?storeId=0bc57cd8-5a50-4a06-364b-81d5c308aa41
 
+1.pizza 2 .wing
 ###
 
 
-WEBSOCKET ws://localhost:8080/driver
+WEBSOCKET ws://localhost:8080/drive
 
 ####
 
@@ -33,3 +35,4 @@ WEBSOCKET ws://localhost:8080/store
 
 
 ####
+

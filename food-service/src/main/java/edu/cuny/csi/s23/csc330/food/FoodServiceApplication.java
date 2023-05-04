@@ -18,7 +18,7 @@ public class FoodServiceApplication {
     @Bean
     public WebSocketConfigurer websockets(Drivers drivers, Stores stores) {
 
-        return registry -> registry.addHandler(drivers, "/driver").addHandler(stores, "/store");
+        return registry -> registry.addHandler(drivers, "/drive").addHandler(stores, "/store");
     }
 
     @Bean

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,12 +21,15 @@ public class OrderController {
     private final Drivers drivers;
     private final AtomicInteger id = new AtomicInteger();
     private final ConcurrentHashMap<String, String> memoryOrderMap;
+    private final Stores stores;
 
     public OrderController(
             @Qualifier("memoryOrderMap") ConcurrentHashMap<String, String> memoryOrderMap,
-            @Autowired Drivers drivers) {
+            @Autowired Drivers drivers,
+            @Autowired Stores stores) {
         this.memoryOrderMap = memoryOrderMap;
         this.drivers = drivers;
+        this.stores = stores;
     }
 
     @GetMapping("{id}")
@@ -40,7 +42,7 @@ public class OrderController {
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{id}/accept")
     public ResponseEntity<String> acceptOrder(@PathVariable("id") String id) {
         String order = memoryOrderMap.get(id);
         if (order == null) {
@@ -51,11 +53,18 @@ public class OrderController {
     }
 
     @PostMapping()
-    public String post(@RequestParam("storeId") String storeId, @RequestBody String body) {
+    public ResponseEntity<String> placeOrder(
+            @RequestParam("storeId") String storeId, @RequestBody String body) {
         System.out.println("post" + body);
         int andIncrement = id.getAndIncrement();
-        memoryOrderMap.put(String.valueOf(andIncrement), body);
-        return dataAndId(String.valueOf(andIncrement), body);
+
+        String orderId = String.valueOf(andIncrement);
+        if (!stores.notifyOrder(storeId, orderId)) {
+            return ResponseEntity.status(404).body("invalid store id " + storeId);
+        }
+        memoryOrderMap.put(orderId, body);
+
+        return ResponseEntity.ok(dataAndId(orderId, body));
     }
 
     private String dataAndId(String andIncrement, String body) {
@@ -63,21 +72,5 @@ public class OrderController {
                 {"id":"%s", "data":"%s"}
                                """
                 .formatted(andIncrement, body);
-    }
-
-    @PutMapping
-    public String put(@RequestParam("storeId") String storeId, @RequestBody String body) {
-
-        Map.Entry<String, String> stringStringEntry =
-                memoryOrderMap.entrySet().stream()
-                        .filter(e -> e.getValue().equalsIgnoreCase(body))
-                        .findFirst()
-                        .get();
-
-        if (stringStringEntry != null) {
-            return dataAndId(stringStringEntry.getKey(), body);
-        } else {
-            return post(storeId, body);
-        }
     }
 }

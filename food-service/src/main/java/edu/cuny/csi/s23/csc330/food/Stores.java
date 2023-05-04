@@ -6,6 +6,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,5 +45,18 @@ public class Stores extends AbstractWebSocketHandler {
 
     public Map<String, String> getMenus() {
         return new HashMap<>(this.menus);
+    }
+
+    public boolean notifyOrder(String storeId, String orderId) {
+        if (!sessions.containsKey(storeId)) {
+            return false;
+        }
+
+        try {
+            sessions.get(storeId).sendMessage(new TextMessage(orderId));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }
 }
