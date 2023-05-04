@@ -38,7 +38,6 @@ public class TextApp {
                 new TextApp(new Display(), abstractPriceCalculator1, menu, new OrderService());
 
         FoodServiceEndpoint foodServiceEndpoint = new FoodServiceEndpoint();
-        foodServiceEndpoint.connectWebSocket();
         textApp.startBusiness();
     }
 

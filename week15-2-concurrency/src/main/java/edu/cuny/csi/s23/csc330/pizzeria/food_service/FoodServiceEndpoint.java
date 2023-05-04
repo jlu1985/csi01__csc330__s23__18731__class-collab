@@ -42,10 +42,11 @@ public class FoodServiceEndpoint extends Endpoint implements MessageHandler.Whol
         thr.printStackTrace();
     }
 
-    public void connectWebSocket() {
+    public void connect() {
         try {
             ClientManager.createClient()
                     .connectToServer(this, new URI("ws://localhost:8080/store"));
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
