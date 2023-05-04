@@ -31,14 +31,20 @@
 
     jQuery(document).ready(() => {
         jQuery.get("stores", (data) => {
+
+            var output ="";
                 console.log(data);
                 if (data) {
                     for (i in data) {
                         jQuery("#_storeid").val(i);
+                        output+= `<p>${i}</p>`
+                        var menu = JSON.stringify(data[i]);
+                        menu = menu.replace(/\\n/g,'<br/>')
+                        output+= `<div>${menu}</div>`
                         break;
                     }
                 }
-                jQuery('#_menu').html(JSON.stringify(data));
+                jQuery('#_menu').html(output);
             }
         );
 
