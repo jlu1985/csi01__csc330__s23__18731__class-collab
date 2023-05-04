@@ -1,8 +1,12 @@
 package edu.cuny.csi.s23.csc330.pizzeria;
 
+import edu.cuny.csi.s23.csc330.pizzeria.food_service.FoodServiceEndpoint;
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceRouterCalculator;
 
+import org.glassfish.tyrus.client.ClientManager;
+
+import java.net.URI;
 import java.util.Scanner;
 
 public class TextApp {
@@ -33,10 +37,13 @@ public class TextApp {
         TextApp textApp =
                 new TextApp(new Display(), abstractPriceCalculator1, menu, new OrderService());
 
+        FoodServiceEndpoint foodServiceEndpoint = new FoodServiceEndpoint();
+        foodServiceEndpoint.connectWebSocket();
         textApp.startBusiness();
     }
 
     private void startBusiness() {
+
         Order order = new Order("1");
         while (true) {
             display.displayMenu(menu, priceCalculator);
