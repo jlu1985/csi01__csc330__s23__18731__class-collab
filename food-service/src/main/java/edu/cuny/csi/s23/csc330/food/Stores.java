@@ -41,6 +41,7 @@ public class Stores extends AbstractWebSocketHandler {
         String msg = message.getPayload();
         menus.put(session.getId(), msg);
         System.out.printf("message from:%s, msg: %s", session.getId(), msg);
+        session.sendMessage(new TextMessage(session.getId()));
     }
 
     public Map<String, String> getMenus() {

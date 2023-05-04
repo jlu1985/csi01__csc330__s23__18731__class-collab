@@ -34,12 +34,7 @@ public class OrderController {
 
     @GetMapping("{id}")
     public String get(@PathVariable("id") String id) {
-        String s = memoryOrderMap.get(id);
-        if (s == null) {
-            return "not found";
-        } else {
-            return s;
-        }
+        return memoryOrderMap.getOrDefault(id, "not found");
     }
 
     @PutMapping("{id}/accept")
@@ -48,7 +43,13 @@ public class OrderController {
         if (order == null) {
             return ResponseEntity.status(404).body("not found");
         }
-        drivers.notifyAll(order);
+        drivers.notifyAll(
+                """
+                New Order Available:
+                orderId: %s,
+                orderDetails: %s
+                """
+                        .formatted(id, order));
         return ResponseEntity.ok().build();
     }
 
@@ -64,13 +65,10 @@ public class OrderController {
         }
         memoryOrderMap.put(orderId, body);
 
-        return ResponseEntity.ok(dataAndId(orderId, body));
-    }
-
-    private String dataAndId(String andIncrement, String body) {
-        return """
-                {"id":"%s", "data":"%s"}
-                               """
-                .formatted(andIncrement, body);
+        return ResponseEntity.ok(
+                """
+                        {"id":"%s", "data":"%s"}
+                                       """
+                        .formatted(orderId, body));
     }
 }

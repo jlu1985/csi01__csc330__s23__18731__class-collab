@@ -11,18 +11,46 @@
             integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="_msg"></div>
+<div class="container-fluid">
+    <div class="row">
 
+        <div id="_msg"></div>
 
+    </div>
+</div>
 <script>
     var ws = null;
-    jQuery(document).ready(()=>{
-        const protocol = location.protocol === "https"? "wss" : "ws"
+    var reconnect = null;
+
+    function connectDrive() {
+        const protocol = location.protocol === "https" ? "wss" : "ws"
         ws = new WebSocket(`${protocol}://${location.host}/drive`)
-        ws.addEventListener("message",data=>{
-            const msgDiv = jQuery("#_msg")
-            msgDiv.html(msgDiv.html()+ `<div class="row">${data}</div>`)
-        })
+        const msgDiv = jQuery("#_msg")
+        ws.addEventListener("message", message => {
+
+            msgDiv.html(msgDiv.html() + `<div class="row">${new Date()} : ${JSON.stringify(message.data)}</div>`)
+        });
+        ws.addEventListener("open", (event) => {
+            msgDiv.html(msgDiv.html() + `<div class="row">Connected</div>`)
+            if (reconnect) {
+                clearInterval(reconnect);
+                reconnect = null;
+            }
+        });
+        ws.addEventListener("close", (event) => {
+            msgDiv.html(msgDiv.html() + `<div class="row">Closed - Trying to reconnect...</div>`)
+            if (!reconnect) {
+                reconnect = setInterval(() => connectDrive(), 5000);
+            }
+        });
+        ws.addEventListener("error", (event) => {
+            msgDiv.html(msgDiv.html() + `<div class="row">error</div>`)
+            ws.close();
+        });
+    }
+
+    jQuery(document).ready(() => {
+        connectDrive();
     })
 </script>
 </body>

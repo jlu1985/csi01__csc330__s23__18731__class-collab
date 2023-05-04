@@ -21,9 +21,9 @@ GET http://localhost:8080/order/0
 PUT http://localhost:8080/order/0/accept
 
 ###
-POST http://localhost:8080/order?storeId=0bc57cd8-5a50-4a06-364b-81d5c308aa41
+POST http://localhost:8080/order?storeId=f6413ad6-911a-1ea4-8f39-5e8a92468587
 
-1.pizza 2 .wing
+soda
 ###
 
 
@@ -33,6 +33,6 @@ WEBSOCKET ws://localhost:8080/drive
 
 WEBSOCKET ws://localhost:8080/store
 
-
+1.pizza 2.wing
 ####
 
