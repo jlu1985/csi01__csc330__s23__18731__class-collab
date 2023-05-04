@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
 public class TextApp {
     private final Display display;
@@ -38,26 +39,43 @@ public class TextApp {
 
         PriceCalculator abstractPriceCalculator1 = new PriceRouterCalculator();
 
-        FoodServiceEndpoint foodService = new FoodServiceEndpoint(() -> {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            Display display = new Display(new ByteArrayInputStream("".getBytes()), new PrintStream(output));
-            display.displayMenu(menu, (x) -> abstractPriceCalculator1.getPrice(x) * 1.5);
-            return output.toString(StandardCharsets.UTF_8);
-        });
+        FoodServiceEndpoint foodService =
+                new FoodServiceEndpoint(
+                        () -> {
+                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            Display display =
+                                    new Display(
+                                            new ByteArrayInputStream("".getBytes()),
+                                            new PrintStream(output));
+                            display.displayMenu(
+                                    menu, (x) -> abstractPriceCalculator1.getPrice(x) * 1.5);
+                            return output.toString(StandardCharsets.UTF_8);
+                        });
         TextApp textApp =
                 new TextApp(
                         new Display(),
                         abstractPriceCalculator1,
                         menu,
                         new OrderService(),
-                        foodService
-                );
+                        foodService);
 
         textApp.startBusiness();
     }
 
     private void startBusiness() {
-        // foodServiceEndpoint.connect();
+
+        CompletableFuture.runAsync(
+                () -> {
+                    try {
+                        System.out.println("trying to connect food service");
+                        foodServiceEndpoint.connect();
+                        Thread.sleep(10000);
+                        System.out.println("connected");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
         // because this is reading from stdin, we have to connect food service before kiosk
         startLocalKiosk();
     }
@@ -68,16 +86,33 @@ public class TextApp {
         while (true) {
             display.displayMenu(menu, priceCalculator);
             display.say("Choose item (exit use invalid choice)");
-            int v = scanner.nextInt();
-            SaleItemConfigurer configurer = this.menu.getConfigurer(v);
-            if (configurer == null) {
-                display.say("checkout ");
-                display.displayOrder(order);
-                System.exit(0);
-            }
+            String nextInput = scanner.next();
 
-            order.add(configurer.takeOrder(display, priceCalculator));
-            //            display.displayOrder(order);
+            if (nextInput.startsWith("v")) {
+                try {
+                    foodServiceEndpoint.viewOrder(nextInput.substring(1));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (nextInput.startsWith("a")) {
+                try {
+                    foodServiceEndpoint.acceptOrder(nextInput.substring(1));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                int v = Integer.parseInt(nextInput);
+                SaleItemConfigurer configurer = this.menu.getConfigurer(v);
+                if (configurer == null) {
+                    display.say("checkout ");
+                    display.displayOrder(order);
+                    System.exit(0);
+                }
+
+                order.add(configurer.takeOrder(display, priceCalculator));
+                //            display.displayOrder(order);
+            }
         }
     }
 }

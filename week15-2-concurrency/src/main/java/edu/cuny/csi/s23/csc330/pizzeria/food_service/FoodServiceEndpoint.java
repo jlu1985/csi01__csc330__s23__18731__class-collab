@@ -1,7 +1,5 @@
 package edu.cuny.csi.s23.csc330.pizzeria.food_service;
 
-import edu.cuny.csi.s23.csc330.pizzeria.Menu;
-import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 import jakarta.websocket.CloseReason;
 import jakarta.websocket.Endpoint;
 import jakarta.websocket.EndpointConfig;
@@ -11,16 +9,17 @@ import jakarta.websocket.Session;
 import org.glassfish.tyrus.client.ClientManager;
 
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.function.Supplier;
 
 public class FoodServiceEndpoint extends Endpoint implements MessageHandler.Whole<String> {
 
-
     private final Supplier<String> menuSupplier;
 
     public FoodServiceEndpoint(Supplier<String> menuSupplier) {
-      this.menuSupplier = menuSupplier;
-
+        this.menuSupplier = menuSupplier;
     }
 
     @Override
@@ -62,5 +61,26 @@ public class FoodServiceEndpoint extends Endpoint implements MessageHandler.Whol
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void acceptOrder(String orderId) throws Exception {
+        String acceptOrder = String.format("http://localhost:8080/order/%s/accept", orderId.trim());
+        HttpClient.newHttpClient()
+                .send(
+                        HttpRequest.newBuilder(new URI(acceptOrder))
+                                .PUT(HttpRequest.BodyPublishers.noBody())
+                                .build(),
+                        HttpResponse.BodyHandlers.discarding());
+    }
+
+    public void viewOrder(String substring) throws Exception {
+        HttpResponse<String> send =
+                HttpClient.newHttpClient()
+                        .send(
+                                HttpRequest.newBuilder(
+                                                new URI("http://localhost:8080/order/" + substring))
+                                        .build(),
+                                HttpResponse.BodyHandlers.ofString());
+        System.out.println(send.body());
     }
 }
