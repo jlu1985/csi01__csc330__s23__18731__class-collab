@@ -14,10 +14,17 @@
 <div class="container-fluid">
     <h1>Food Service</h1>
     <div class="row">
+        <h2>Stores</h2>
         <div id="_menu"></div>
     </div>
     <div class="row">
-        <button class="btn btn-blue">klj</button>
+        <input id="_storeid" type="text" placeholder="store id">
+        <textarea id="_order" type="text" width="200"></textarea>
+        <button id="_placeorder" class="btn btn-primary">place order</button>
+    </div>
+
+    <div class="row">
+        <div id="_recent-order"></div>
     </div>
 </div>
 <script>
@@ -25,9 +32,33 @@
     jQuery(document).ready(() => {
         jQuery.get("stores", (data) => {
                 console.log(data);
+                if (data) {
+                    for (i in data) {
+                        jQuery("#_storeid").val(i);
+                        break;
+                    }
+                }
                 jQuery('#_menu').html(JSON.stringify(data));
             }
         );
+
+        jQuery("#_placeorder").click((e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const storeId = $("#_storeid").val();
+            const order = $("#_order").val();
+            jQuery.ajax(`order?storeId=${storeId}`,
+                {
+                    method: "POST",
+                    data: order,
+                    complete: (d) => {
+
+                        const recentOrder = jQuery('#_recent-order');
+                        recentOrder.html(`<p>${d.responseText}</p>` + recentOrder.html());
+                    }
+                }
+            )
+        })
     })
 </script>
 </body>

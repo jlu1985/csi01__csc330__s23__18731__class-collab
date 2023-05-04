@@ -56,9 +56,10 @@ public class OrderController {
     @PostMapping()
     public ResponseEntity<String> placeOrder(
             @RequestParam("storeId") String storeId, @RequestBody String body) {
-        System.out.println("post" + body);
-        int andIncrement = id.getAndIncrement();
 
+        System.out.println("post" + body);
+
+        int andIncrement = id.getAndIncrement();
         String orderId = String.valueOf(andIncrement);
         if (!stores.notifyOrder(storeId, orderId)) {
             return ResponseEntity.status(404).body("invalid store id " + storeId);
