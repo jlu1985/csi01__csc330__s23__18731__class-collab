@@ -4,9 +4,10 @@ import edu.cuny.csi.s23.csc330.pizzeria.food_service.FoodServiceEndpoint;
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceCalculator;
 import edu.cuny.csi.s23.csc330.pizzeria.price.PriceRouterCalculator;
 
-import org.glassfish.tyrus.client.ClientManager;
-
-import java.net.URI;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class TextApp {
@@ -16,16 +17,19 @@ public class TextApp {
     private final OrderService orderService;
 
     private final Scanner scanner = new Scanner(System.in);
+    private final FoodServiceEndpoint foodServiceEndpoint;
 
     public TextApp(
             Display display,
             PriceCalculator priceCalculator,
             Menu menu,
-            OrderService orderService) {
+            OrderService orderService,
+            FoodServiceEndpoint foodServiceEndpoint) {
         this.display = display;
         this.priceCalculator = priceCalculator;
         this.menu = menu;
         this.orderService = orderService;
+        this.foodServiceEndpoint = foodServiceEndpoint;
     }
 
     public static void main(String[] args) throws Exception {
@@ -34,15 +38,31 @@ public class TextApp {
 
         PriceCalculator abstractPriceCalculator1 = new PriceRouterCalculator();
 
+        FoodServiceEndpoint foodService = new FoodServiceEndpoint(() -> {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            Display display = new Display(new ByteArrayInputStream("".getBytes()), new PrintStream(output));
+            display.displayMenu(menu, (x) -> abstractPriceCalculator1.getPrice(x) * 1.5);
+            return output.toString(StandardCharsets.UTF_8);
+        });
         TextApp textApp =
-                new TextApp(new Display(), abstractPriceCalculator1, menu, new OrderService());
+                new TextApp(
+                        new Display(),
+                        abstractPriceCalculator1,
+                        menu,
+                        new OrderService(),
+                        foodService
+                );
 
-        FoodServiceEndpoint foodServiceEndpoint = new FoodServiceEndpoint();
-        foodServiceEndpoint.connectWebSocket();
         textApp.startBusiness();
     }
 
     private void startBusiness() {
+        // foodServiceEndpoint.connect();
+        // because this is reading from stdin, we have to connect food service before kiosk
+        startLocalKiosk();
+    }
+
+    private void startLocalKiosk() {
 
         Order order = new Order("1");
         while (true) {
