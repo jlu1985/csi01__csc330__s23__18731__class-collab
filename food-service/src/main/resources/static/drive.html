@@ -29,7 +29,7 @@
     }
 
     function connectDrive() {
-        const protocol = location.protocol === "https" ? "wss" : "ws"
+        const protocol = location.protocol === "https:" ? "wss" : "ws"
         ws = new WebSocket(`${protocol}://${location.host}/drive`)
 
         ws.addEventListener("message", message => {
@@ -50,6 +50,7 @@
             }
         });
         ws.addEventListener("error", (event) => {
+            console.error(event);
             ws.close();
         });
     }
